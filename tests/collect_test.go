@@ -20,4 +20,7 @@ func TestCollect(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "test", collect.Name)
 	assert.Equal(t, "example.com", collect.Url)
+
+	err = db.DeleteAll()
+	assert.Nil(t, err)
 }

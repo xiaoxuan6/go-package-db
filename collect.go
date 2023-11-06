@@ -17,3 +17,7 @@ func FindByName(name string) (collect Collect, err error) {
 	err = DB.Model(&Collect{}).Where("name = ?", name).First(&collect).Error
 	return
 }
+
+func DeleteAll() error {
+	return DB.Where("id > ?", 0).Delete(&Collect{}).Error
+}
