@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	db "github.com/xiaoxuan6/go-package-db"
 	"testing"
@@ -23,4 +24,16 @@ func TestCollect(t *testing.T) {
 
 	err = db.DeleteAll()
 	assert.Nil(t, err)
+
+	err = db.Insert(db.Collect{
+		Name: "test",
+		Url:  "example.com",
+	})
+	assert.Nil(t, err)
+
+	err = db.Insert(db.Collect{
+		Name: "test",
+		Url:  "example.com",
+	})
+	assert.Nil(t, err, fmt.Sprintf("重复插入数据，错误为：%s", err.Error()))
 }

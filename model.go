@@ -24,6 +24,7 @@ func Init(host, port, username, password, dbname string) {
 func AutoMigrate() {
 	DB.Logger = logger.Default.LogMode(logger.Silent) // 关闭慢查询日志
 	_ = DB.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(Collect{})
+	_ = DB.Migrator().CreateIndex(&Collect{}, "index_name")
 }
 
 func Close() error {
