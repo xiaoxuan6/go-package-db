@@ -2,8 +2,8 @@ package go_package_db
 
 type Collect struct {
 	ID   int    `json:"id" gorm:"primarykey"`
-	Name string `json:"name" gorm:"index:name,unique;varchar(125);not null;comment:'第三方包名'"`
-	Url  string `json:"url" gorm:"varchar(125);not null;comment:'第三方包地址'"`
+	Name string `json:"name" gorm:"varchar(125);not null;comment:'第三方包名'"`
+	Url  string `json:"url" gorm:"index:url,unique;varchar(125);not null;comment:'第三方包地址'"`
 }
 
 func Insert(collect ...Collect) error {
@@ -13,8 +13,13 @@ func Insert(collect ...Collect) error {
 	return nil
 }
 
-func FindByName(name string) (collect Collect, err error) {
-	err = DB.Model(&Collect{}).Where("name = ?", name).First(&collect).Error
+func FindByName(name string) (collect []Collect, err error) {
+	err = DB.Model(&Collect{}).Where("name LIKE ?", "%"+name+"%").Find(&collect).Error
+	return
+}
+
+func FindByUrl(url string) (collect Collect, err error) {
+	err = DB.Model(&Collect{}).Where("url = ?", url).First(&collect).Error
 	return
 }
 

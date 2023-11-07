@@ -11,16 +11,22 @@ func TestCollect(t *testing.T) {
 	db.Init("127.0.0.1", "3306", "root", "root", "go_package_db")
 	defer db.Close()
 	db.AutoMigrate()
+
 	err := db.Insert(db.Collect{
 		Name: "test",
 		Url:  "example.com",
 	})
 	assert.Nil(t, err)
 
-	collect, err := db.FindByName("test")
+	collect, err := db.FindByUrl("example.com")
 	assert.Nil(t, err)
 	assert.Equal(t, "test", collect.Name)
 	assert.Equal(t, "example.com", collect.Url)
+
+	collects, err := db.FindByName("test")
+	assert.Nil(t, err)
+	assert.Equal(t, 1, len(collects))
+	assert.Equal(t, "test", collects[0].Name)
 
 	err = db.DeleteAll()
 	assert.Nil(t, err)
