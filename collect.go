@@ -26,3 +26,8 @@ func FindByUrl(url string) (collect Collect, err error) {
 func DeleteAll() error {
 	return DB.Where("id > ?", 0).Delete(&Collect{}).Error
 }
+
+func FindAll() (collect []Collect, err error) {
+	err = DB.Where("id > ?", 0).Find(&collect).Error
+	return
+}
