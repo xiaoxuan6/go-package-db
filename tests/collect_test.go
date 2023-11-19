@@ -13,8 +13,9 @@ func TestCollect(t *testing.T) {
 	db.AutoMigrate()
 
 	err := db.Insert(db.Collect{
-		Name: "test",
-		Url:  "example.com",
+		Name:     "test",
+		Url:      "example.com",
+		Language: "go",
 	})
 	assert.Nil(t, err)
 
@@ -32,14 +33,16 @@ func TestCollect(t *testing.T) {
 	assert.Nil(t, err)
 
 	err = db.Insert(db.Collect{
-		Name: "test",
-		Url:  "example.com",
+		Name:     "test",
+		Url:      "example.com",
+		Language: "go",
 	})
 	assert.Nil(t, err)
 
 	err = db.Insert(db.Collect{
-		Name: "test",
-		Url:  "example.com",
+		Name:     "test",
+		Url:      "example.com",
+		Language: "go",
 	})
 	assert.Nil(t, err, fmt.Sprintf("重复插入数据，错误为：%s", err.Error()))
 }

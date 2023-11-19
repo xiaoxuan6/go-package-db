@@ -1,9 +1,10 @@
 package go_package_db
 
 type Collect struct {
-	ID   int    `json:"id" gorm:"primarykey"`
-	Name string `json:"name" gorm:"varchar(125);not null;comment:'第三方包名'"`
-	Url  string `json:"url" gorm:"index:url,unique;varchar(125);not null;comment:'第三方包地址'"`
+	ID       int    `json:"id" gorm:"primarykey"`
+	Name     string `json:"name" gorm:"varchar(125);not null;comment:'第三方包名'"`
+	Url      string `json:"url" gorm:"index:url,unique;varchar(125);not null;comment:'第三方包地址'"`
+	Language string `json:"language" gorm:"varchar(125);not null;comment:'语言'"`
 }
 
 func Insert(collect ...Collect) error {
